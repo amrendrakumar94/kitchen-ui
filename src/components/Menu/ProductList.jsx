@@ -25,7 +25,7 @@ function ProductList() {
 
     if (productId > 0 && userData != null) {
       try {
-        const response = await fetch("http://localhost:8082/add-to-cart", {
+        const response = await fetch("http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/add-to-cart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function ProductList() {
     const userId = user ? user.id : 0;
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:8082/get-all-products/${userId}/${cuisineType}`
+        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/get-all-products/${userId}/${cuisineType}`
       );
       const data = await response.json();
       setProducts(data.dishDetails);
@@ -73,9 +73,8 @@ function ProductList() {
         {cuisineTypes.map((cuisine) => (
           <button
             key={cuisine.id}
-            className={`${
-              cuisineType === cuisine.name ? "text-orange-700" : "text-gray-700"
-            } hover:text-orange-700  py-1 px-6 rounded-full border border-gray-400 shadow-lg`}
+            className={`${cuisineType === cuisine.name ? "text-orange-700" : "text-gray-700"
+              } hover:text-orange-700  py-1 px-6 rounded-full border border-gray-400 shadow-lg`}
             onClick={() => handleCuisineType(cuisine.name)}
           >
             {cuisine.name}

@@ -21,7 +21,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8082/user-login", {
+      const response = await fetch("http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/user-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
