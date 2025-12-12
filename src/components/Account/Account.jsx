@@ -59,7 +59,7 @@ function Account() {
       setUser(userData);
       const fetchData = async () => {
         const response = await fetch(
-          `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/get-order-details/${userId}`
+          `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/get-order-details/${userId}`
         );
         const data = await response.json();
         setOrderDetails(data);
@@ -143,8 +143,8 @@ function Account() {
                 <ListItemText
                   primary={text}
                   className={`font-bold block py-2 pr-4 pl-3 duration-200 ${selectedOption === text
-                      ? "text-orange-700"
-                      : "text-gray-700"
+                    ? "text-orange-700"
+                    : "text-gray-700"
                     } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`}
                 />
               </ListItem>

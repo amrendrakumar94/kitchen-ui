@@ -25,7 +25,7 @@ function ProductList() {
 
     if (productId > 0 && userData != null) {
       try {
-        const response = await fetch("http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/add-to-cart", {
+        const response = await fetch("http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/add-to-cart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function ProductList() {
     const userId = user ? user.id : 0;
     const fetchData = async () => {
       const response = await fetch(
-        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/get-all-products/${userId}/${cuisineType}`
+        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/get-all-products/${userId}/${cuisineType}`
       );
       const data = await response.json();
       setProducts(data.dishDetails);
