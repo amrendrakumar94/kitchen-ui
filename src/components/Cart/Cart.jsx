@@ -84,7 +84,7 @@ function Cart() {
     if (userId > 0) {
       const fetchData = async () => {
         const response = await fetch(
-          `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/get-dish-details-by-user-id/${userId}`
+          `/api/get-dish-details-by-user-id/${userId}`
         );
         const data = await response.json();
         setItems(data);
@@ -99,7 +99,7 @@ function Cart() {
   const handleIncrement = async (dishId) => {
     try {
       const response = await fetch(
-        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/increment-cart-item/${user.id}/${dishId}`,
+        `/api/increment-cart-item/${user.id}/${dishId}`,
         {
           method: "POST",
         }
@@ -117,7 +117,7 @@ function Cart() {
   const handleDecrement = async (dishId) => {
     try {
       const response = await fetch(
-        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/decrement-cart-item/${user.id}/${dishId}`,
+        `/api/decrement-cart-item/${user.id}/${dishId}`,
         {
           method: "POST",
         }
@@ -135,7 +135,7 @@ function Cart() {
   const removeItem = async (dishId) => {
     try {
       const response = await fetch(
-        `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/remove-cart-item/${user.id}/${dishId}`,
+        `/api/remove-cart-item/${user.id}/${dishId}`,
         {
           method: "DELETE",
         }
@@ -170,7 +170,7 @@ function Cart() {
         address: "Bangalore",
         order_ids: dish_ids,
       };
-      const response = await fetch("http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/save-order-details", {
+      const response = await fetch("/api/save-order-details", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

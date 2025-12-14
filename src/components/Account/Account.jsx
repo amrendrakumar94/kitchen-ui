@@ -59,7 +59,7 @@ function Account() {
       setUser(userData);
       const fetchData = async () => {
         const response = await fetch(
-          `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/get-order-details/${userId}`
+          `/api/get-order-details/${userId}`
         );
         const data = await response.json();
         setOrderDetails(data);

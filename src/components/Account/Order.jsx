@@ -43,7 +43,7 @@ function Order({ dishIds, date }) {
     if (dishIds) {
       const fetchData = async () => {
         const response = await fetch(
-          `http://alb-springboot-1620036472.eu-north-1.elb.amazonaws.com/api/get-dish-details-by-dish-ids/${dishIds}`
+          `/api/get-dish-details-by-dish-ids/${dishIds}`
         );
         const data = await response.json();
         setOrderDetails(data);
