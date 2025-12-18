@@ -21,7 +21,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/user-login", {
+      const response = await fetch("http://http://kitchen-alb-44602801.eu-north-1.elb.amazonaws.com/api/user-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

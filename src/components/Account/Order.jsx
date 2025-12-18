@@ -43,7 +43,7 @@ function Order({ dishIds, date }) {
     if (dishIds) {
       const fetchData = async () => {
         const response = await fetch(
-          `/api/get-dish-details-by-dish-ids/${dishIds}`
+          `http://http://kitchen-alb-44602801.eu-north-1.elb.amazonaws.com/api/get-dish-details-by-dish-ids/${dishIds}`
         );
         const data = await response.json();
         setOrderDetails(data);
