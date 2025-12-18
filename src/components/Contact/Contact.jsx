@@ -22,7 +22,7 @@ function Contact() {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await fetch("http://http://kitchen-alb-44602801.eu-north-1.elb.amazonaws.com/api/sign-in-user", {
+      const response = await fetch("http://www.kitchen.publicvm.com/api/sign-in-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

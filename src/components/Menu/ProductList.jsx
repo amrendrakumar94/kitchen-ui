@@ -58,7 +58,7 @@ function ProductList() {
     const userId = user ? user.id : 0;
     const fetchData = async () => {
       const response = await fetch(
-        `http://kitchen-alb-44602801.eu-north-1.elb.amazonaws.com/noauth/api/get-all-products/${userId}/${cuisineType}`
+        `http://www.kitchen.publicvm.com/api/get-all-products/${userId}/${cuisineType}`
       );
       const data = await response.json();
       setProducts(data.dishDetails);

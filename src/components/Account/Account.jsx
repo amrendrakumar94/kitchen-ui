@@ -59,7 +59,7 @@ function Account() {
       setUser(userData);
       const fetchData = async () => {
         const response = await fetch(
-          `http://http://kitchen-alb-44602801.eu-north-1.elb.amazonaws.com/api/get-order-details/${userId}`
+          `http://www.kitchen.publicvm.com/api/get-order-details/${userId}`
         );
         const data = await response.json();
         setOrderDetails(data);
