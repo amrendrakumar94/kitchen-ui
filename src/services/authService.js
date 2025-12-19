@@ -1,7 +1,7 @@
 import api from '../utils/api';
 import { AUTH_TYPES, STORAGE_KEYS, ROUTES } from '../constants';
 
-const AUTH_ENDPOINT = '/auth/authenticate/user';
+const AUTH_ENDPOINT = '/api/auth/authenticate/user';
 
 // Signup function
 export const signup = async (phoneNo, password, name) => {
