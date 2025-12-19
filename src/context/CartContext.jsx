@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import * as cartService from '../services/cartService';
+import { STORAGE_KEYS } from '../constants';
 
 const CartContext = createContext();
 
@@ -25,9 +26,12 @@ export const CartProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetch cart on mount
+    // Fetch cart on mount only if user is authenticated
     useEffect(() => {
-        fetchCart();
+        const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+        if (token) {
+            fetchCart();
+        }
     }, []);
 
     const fetchCart = async () => {
