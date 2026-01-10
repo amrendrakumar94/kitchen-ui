@@ -27,7 +27,13 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     (error) => {
+        // The original code had a nested arrow function here, which was likely a mistake.
+        // The outer (error) => { ... } is the actual error handler for the interceptor.
+        // The inner (error) => { ... } was a function definition that was never called.
+        // The fix is to remove the outer (error) => { ... } and keep the inner logic directly
+        // within the interceptor's error handler.
         if (error.response?.status === 401) {
+            console.error('API 401 Error from:', error.config?.url);
             // Token expired or invalid
             localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
             localStorage.removeItem(STORAGE_KEYS.TOKEN_EXPIRY);

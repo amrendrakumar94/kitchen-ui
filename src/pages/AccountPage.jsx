@@ -209,11 +209,31 @@ const AccountPage = () => {
         >
             <ShoppingBag sx={{ fontSize: 80, color: 'primary.main', opacity: 0.5, mb: 3 }} />
             <Typography variant="h4" gutterBottom>
-                No Orders Yet
+                View Your Orders
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-                Your order history will appear here
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                Track and manage all your orders in one place
             </Typography>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+                <button
+                    onClick={() => navigate('/orders')}
+                    style={{
+                        padding: '12px 32px',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'transform 0.2s',
+                    }}
+                    onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                    onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                >
+                    View All Orders
+                </button>
+            </Box>
         </Box>
     );
 

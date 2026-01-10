@@ -94,8 +94,36 @@ const MainLayout = ({ children }) => {
                                 color="inherit"
                                 size="large"
                                 onClick={() => navigate(ROUTES.CART)}
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
                             >
-                                <Badge badgeContent={cartSummary.totalItems} color="error">
+                                <Badge
+                                    badgeContent={cartSummary.totalItems}
+                                    color="error"
+                                    sx={{
+                                        '& .MuiBadge-badge': {
+                                            animation: cartSummary.totalItems > 0 ? 'pulse 2s infinite' : 'none',
+                                            '@keyframes pulse': {
+                                                '0%': {
+                                                    transform: 'scale(1)',
+                                                    opacity: 1,
+                                                },
+                                                '50%': {
+                                                    transform: 'scale(1.1)',
+                                                    opacity: 0.8,
+                                                },
+                                                '100%': {
+                                                    transform: 'scale(1)',
+                                                    opacity: 1,
+                                                },
+                                            },
+                                        },
+                                    }}
+                                >
                                     <ShoppingCart />
                                 </Badge>
                             </IconButton>
@@ -163,7 +191,7 @@ const MainLayout = ({ children }) => {
                                     </ListItemIcon>
                                     My Profile
                                 </MenuItem>
-                                <MenuItem onClick={() => handleNavigate(ROUTES.ACCOUNT)}>
+                                <MenuItem onClick={() => handleNavigate(ROUTES.ORDERS)}>
                                     <ListItemIcon>
                                         <ShoppingBag fontSize="small" />
                                     </ListItemIcon>

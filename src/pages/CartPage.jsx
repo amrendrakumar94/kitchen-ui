@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Box,
@@ -13,6 +14,7 @@ import {
     Grid,
     Alert,
     CircularProgress,
+    Snackbar,
 } from '@mui/material';
 import {
     Add,
@@ -28,17 +30,35 @@ import { ROUTES } from '../constants';
 const CartPage = () => {
     const navigate = useNavigate();
     const { cartItems, cartSummary, loading, error, updateQuantity, removeItem } = useCart();
+    const [updatingItem, setUpdatingItem] = useState(null);
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     const handleQuantityChange = async (productId, currentQuantity, change) => {
         const newQuantity = currentQuantity + change;
         if (newQuantity < 1) return;
-        if (newQuantity > 10) return; // Max quantity limit
+        if (newQuantity > 10) {
+            setSnackbar({ open: true, message: 'Maximum quantity is 10', severity: 'warning' });
+            return;
+        }
 
-        await updateQuantity(productId, newQuantity);
+        setUpdatingItem(productId);
+        const success = await updateQuantity(productId, newQuantity);
+        setUpdatingItem(null);
+
+        if (success) {
+            setSnackbar({ open: true, message: 'Quantity updated', severity: 'success' });
+        } else {
+            setSnackbar({ open: true, message: 'Failed to update quantity', severity: 'error' });
+        }
     };
 
     const handleRemoveItem = async (productId) => {
-        await removeItem(productId);
+        const success = await removeItem(productId);
+        if (success) {
+            setSnackbar({ open: true, message: 'Item removed from cart', severity: 'success' });
+        } else {
+            setSnackbar({ open: true, message: 'Failed to remove item', severity: 'error' });
+        }
     };
 
     const handleContinueShopping = () => {
@@ -46,8 +66,7 @@ const CartPage = () => {
     };
 
     const handleCheckout = () => {
-        // TODO: Navigate to checkout page
-        alert('Checkout functionality coming soon!');
+        navigate(ROUTES.CHECKOUT);
     };
 
     if (loading) {
@@ -159,9 +178,13 @@ const CartPage = () => {
                                                     <IconButton
                                                         size="small"
                                                         onClick={() => handleQuantityChange(item.productId, item.quantity, -1)}
-                                                        disabled={item.quantity <= 1}
+                                                        disabled={item.quantity <= 1 || updatingItem === item.productId}
                                                     >
-                                                        <Remove />
+                                                        {updatingItem === item.productId ? (
+                                                            <CircularProgress size={20} />
+                                                        ) : (
+                                                            <Remove />
+                                                        )}
                                                     </IconButton>
                                                     <Typography
                                                         sx={{
@@ -176,9 +199,13 @@ const CartPage = () => {
                                                     <IconButton
                                                         size="small"
                                                         onClick={() => handleQuantityChange(item.productId, item.quantity, 1)}
-                                                        disabled={item.quantity >= 10}
+                                                        disabled={item.quantity >= 10 || updatingItem === item.productId}
                                                     >
-                                                        <Add />
+                                                        {updatingItem === item.productId ? (
+                                                            <CircularProgress size={20} />
+                                                        ) : (
+                                                            <Add />
+                                                        )}
                                                     </IconButton>
                                                 </Box>
 
@@ -287,6 +314,22 @@ const CartPage = () => {
                         </Grid>
                     </Grid>
                 )}
+
+                {/* Snackbar for notifications */}
+                <Snackbar
+                    open={snackbar.open}
+                    autoHideDuration={3000}
+                    onClose={() => setSnackbar({ ...snackbar, open: false })}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                >
+                    <Alert
+                        onClose={() => setSnackbar({ ...snackbar, open: false })}
+                        severity={snackbar.severity}
+                        sx={{ width: '100%' }}
+                    >
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
             </Container>
         </MainLayout>
     );

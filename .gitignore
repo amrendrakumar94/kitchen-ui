@@ -1,59 +1,7 @@
-# -------------------------------------------------------------------
-# 1. Dependency Directories
-# -------------------------------------------------------------------
-# Node modules folder - Always ignore this! It gets generated via npm install.
 /node_modules
-# Vite-specific dependencies cache
 /.vitepress/cache
-
-# -------------------------------------------------------------------
-# 2. Build & Distribution
-# -------------------------------------------------------------------
-# The folder where Vite bundles the production files
 /dist
 /build
-# Vite's temporary cache file in the root directory
 .vite/
-
-# -------------------------------------------------------------------
-# 3. Logging and Testing
-# -------------------------------------------------------------------
-# Runtime log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-# Logs from various development tools
-lerna-debug.log*
-
-# Test/coverage results
-/coverage
-
-# -------------------------------------------------------------------
-# 4. Environment and Configuration Files
-# -------------------------------------------------------------------
-# Environment variables file - NEVER commit secrets to Git!
 .env
-.env.*
-!.env.production* # Keep only production environment file, if required
-/local_config.js # Example of a local configuration file
-
-# -------------------------------------------------------------------
-# 5. OS and Editor Files
-# -------------------------------------------------------------------
-# OS generated files (macOS)
-.DS_Store
-
-# Editor/IDE temporary files
-# VS Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history # Local history files
-
-# JetBrains IDEs (WebStorm, IntelliJ)
-.idea/
-
-# Thumbnails and system files
-thumbs.db
+.gitignore

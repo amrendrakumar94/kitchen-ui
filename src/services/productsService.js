@@ -72,3 +72,18 @@ export const getFilteredProducts = async (filters, page = 1, pageSize = 20, sort
         filters,
     });
 };
+
+/**
+ * Get single product by ID
+ * @param {string} id - Product ID
+ * @returns {Promise} API response
+ */
+export const getProductById = async (id) => {
+    try {
+        const response = await api.get(`/api/products/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching product details:', error);
+        throw error;
+    }
+};

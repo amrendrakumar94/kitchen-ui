@@ -25,7 +25,11 @@ export const ROUTES = {
     LOGIN: '/',
     SIGNUP: '/signup',
     PRODUCTS: '/products',
+    PRODUCT_DETAILS: '/products/:id',
     CART: '/cart',
+    CHECKOUT: '/checkout',
+    ORDER_CONFIRMATION: '/order-confirmation',
+    ORDERS: '/orders',
     ACCOUNT: '/account',
 };
 

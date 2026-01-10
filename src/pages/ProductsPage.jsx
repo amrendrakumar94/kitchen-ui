@@ -174,8 +174,10 @@ const ProductsPage = () => {
     const ProductCard = ({ product }) => {
         // Check if this product is already in the cart
         const isInCart = cartItems.some(item => item.productId === product.id);
+        const [imageError, setImageError] = useState(false);
 
-        const handleButtonClick = () => {
+        const handleButtonClick = (e) => {
+            e.stopPropagation();
             if (isInCart) {
                 // Navigate to cart page
                 navigate(ROUTES.CART);
@@ -185,25 +187,56 @@ const ProductsPage = () => {
             }
         };
 
+        const handleImageError = () => {
+            setImageError(true);
+        };
+
+        // Fallback image URL - a nice food placeholder
+        const fallbackImage = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop';
+
         return (
             <Card
                 sx={{
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
+                    position: 'relative',
                     transition: 'transform 0.2s, box-shadow 0.2s',
+                    cursor: 'pointer',
                     '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: 8,
                     },
                 }}
+                onClick={() => navigate(`${ROUTES.PRODUCTS}/${product.id}`, { state: { product } })}
             >
+                {/* In Cart Badge */}
+                {isInCart && (
+                    <Chip
+                        label="In Cart"
+                        color="success"
+                        size="small"
+                        sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            zIndex: 1,
+                            fontWeight: 600,
+                            boxShadow: 2,
+                        }}
+                    />
+                )}
+
                 <CardMedia
                     component="img"
                     height="200"
-                    image={product.image}
+                    image={imageError ? fallbackImage : product.image}
                     alt={product.name}
-                    sx={{ objectFit: 'cover' }}
+                    onError={handleImageError}
+                    sx={{
+                        objectFit: 'cover',
+                        backgroundColor: 'grey.100',
+                    }}
                 />
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ mb: 1 }}>
@@ -322,6 +355,27 @@ const ProductsPage = () => {
     return (
         <MainLayout>
             <Container maxWidth="xl" sx={{ py: 4 }}>
+                {/* Page Header */}
+                <Box sx={{ mb: 4, textAlign: 'center' }}>
+                    <Typography
+                        variant="h3"
+                        component="h1"
+                        gutterBottom
+                        sx={{
+                            fontWeight: 700,
+                            background: 'linear-gradient(45deg, #FF6B6B 30%, #4ECDC4 90%)',
+                            backgroundClip: 'text',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                        }}
+                    >
+                        Delicious Indian Cuisine
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary" sx={{ mb: 3 }}>
+                        Explore our authentic dishes made with love and traditional recipes
+                    </Typography>
+                </Box>
+
                 {/* Filters Section */}
                 <Box sx={{ mb: 4 }}>
                     <Grid container spacing={2} alignItems="center">
